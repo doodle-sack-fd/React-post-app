@@ -1,5 +1,5 @@
 import PostListItem from "../post-list-item";
-import "./post-list.css"
+import "./post-list.scss"
 /* or use spread {...item}   9line */
 const PostList = ({ posts }) => {
 
