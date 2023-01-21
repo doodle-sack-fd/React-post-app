@@ -1,5 +1,4 @@
 import PostListItem from "../post-list-item";
-import { ListGroup } from 'reactstrap'
 import "./post-list.scss"
 /* or use spread {...itemProps}   9line */
 const PostList = ({ posts, onDelete, onToggleImportant, onToggleLiked }) => {
@@ -19,9 +18,9 @@ const PostList = ({ posts, onDelete, onToggleImportant, onToggleLiked }) => {
     });
 
     return (
-        <ListGroup className="app-list list-group">
+        <ul className="app-list list-group">
             {elements}
-        </ListGroup>
+        </ul>
     )
 }
 
