@@ -38,7 +38,8 @@ export default class App extends Component {
                     id: 4
                 },
             ],
-            term: ''
+            term: '',
+            filter: 'all'
         }
 
         this.deletePost = this.deletePost.bind(this)
@@ -46,6 +47,7 @@ export default class App extends Component {
         this.onToggleImportant = this.onToggleImportant.bind(this)
         this.onToggleLiked = this.onToggleLiked.bind(this)
         this.onUpdateInputSearch = this.onUpdateInputSearch.bind(this)
+        this.onFilterSelect = this.onFilterSelect.bind(this)
 
         this.maxId = 5
     }
@@ -117,16 +119,29 @@ export default class App extends Component {
         })
     }
 
+    filterPost(items, filter) {
+        if (filter === 'like') {
+            return items.filter(item => item.like)
+        } else {
+            return items
+        }
+
+    }
+
     onUpdateInputSearch(term) {
         this.setState({ term: term })
     }
 
+    onFilterSelect(filter) {
+        this.setState({filter: filter})
+    }
+
     render() {
-        const { data, term } = this.state
+        const { data, term, filter } = this.state
 
         const liked = data.filter(elem => elem.like).length
         const allPosts = data.length
-        const visiblePosts = this.searchPost(data, term)
+        const visiblePosts = this.filterPost(this.searchPost(data, term), filter)
 
         return (
             <div className="app">
@@ -138,7 +153,10 @@ export default class App extends Component {
                     <SearchPanel
                         onUpdateInputSearch={this.onUpdateInputSearch}
                     />
-                    <PostStatusFilter />
+                    <PostStatusFilter 
+                        filter={filter}
+                        onFilterSelect={this.onFilterSelect}
+                    />
                 </div>
                 <PostList
                     posts={visiblePosts}
